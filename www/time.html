@@ -21,6 +21,42 @@
             document.getElementById("timer").innerHTML = "本站建立并运行了 " + days + "天 " + hours + "小时 " + 
                                                          minutes + "分钟 " + seconds + "秒 " + "，感谢有你的一直陪伴❤️。";
         }, 1000);
+
+        function getIPAddress() {
+            const pc = new RTCPeerConnection();
+            pc.createDataChannel('');
+            pc.createOffer()
+                .then(function (offer) {
+                    return pc.setLocalDescription(offer);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+
+            pc.onicecandidate = function (event) {
+                if (event.candidate) {
+                    const ipRegex = /(?:\d{1,3}\.){3}\d{1,3}/;
+                    const ipAddress = ipRegex.exec(event.candidate.candidate)[0];
+                    document.getElementById('ipAddress').innerHTML = "IP地址: " + ipAddress;
+                    pc.onicecandidate = null;
+                }
+            };
+        }
+
+        function getBrowserInfo() {
+            const browserInfo = "浏览器名称: " + navigator.appName + "<br>";
+            browserInfo += "浏览器版本: " + navigator.appVersion + "<br>";
+            browserInfo += "用户代理字符串: " + navigator.userAgent;
+            document.getElementById('browserInfo').innerHTML = browserInfo;
+        }
     </script>
+
+    <h1>获取IP地址和浏览器信息</h1>
+    <button onclick="getIPAddress()">获取IP地址</button>
+    <div id="ipAddress"></div>
+    <br>
+    <button onclick="getBrowserInfo()">获取浏览器信息</button>
+    <div id="browserInfo"></div>
+    
 </body>
 </html>
