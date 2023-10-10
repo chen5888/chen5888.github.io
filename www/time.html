@@ -3,6 +3,20 @@
 <head>
     <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
     <title>网站运行时间</title>
+    <script>
+        var devtoolsStatus = 'closed';
+        setInterval(function() {
+            console.log('check');
+            if ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || window.outerWidth - window.innerWidth > 200 || window.outerHeight - window.innerHeight > 200) {
+                if (devtoolsStatus === 'closed') {
+                    devtoolsStatus = 'open';
+                    window.location.href = "https://chen5888.github.io/";
+                }
+            } else {
+                devtoolsStatus = 'closed';
+            }
+        }, 1000);
+    </script>
 </head>
 <body>
     <p id="timer"></p>
