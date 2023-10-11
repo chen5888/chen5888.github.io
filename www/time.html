@@ -9,12 +9,19 @@ function isWechatBrowser() {
   return ua.indexOf('micromessenger') !== -1;
 }
 
+function displayBrowserInfo() {
+  var ua = navigator.userAgent;
+  
+  // 显示浏览器信息
+  document.body.innerHTML = '请在微信中打开页面。<br>';
+  document.body.innerHTML += '您当前的浏览器是：' + ua;
+}
+
 // 在页面加载完成后进行判断
 window.addEventListener('DOMContentLoaded', function() {
   if (!isWechatBrowser()) {
-    // 如果不在微信中打开，则显示提示信息或跳转到其他页面
-    // 例如显示提示信息：
-    document.body.innerHTML = '不支持的浏览器，此页面仅支持使用微信中打开，请使用微信打开此网站';
+    // 如果不在微信中打开，则显示提示信息和浏览器信息
+    displayBrowserInfo();
   }
 });
 
