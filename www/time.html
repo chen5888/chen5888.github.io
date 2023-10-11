@@ -13,8 +13,24 @@ function displayBrowserInfo() {
   var ua = navigator.userAgent;
   
   // 显示浏览器信息
-  document.body.innerHTML = '请在微信中打开页面。<br>';
-  document.body.innerHTML += '您当前的浏览器是：' + ua;
+  var message = '请在微信中打开页面。<br>';
+  message += '您当前的浏览器是：' + ua;
+  document.body.innerHTML = message;
+
+  // 创建打开微信的按钮容器
+  var buttonContainer = document.createElement('div');
+  buttonContainer.style.textAlign = 'center';
+  document.body.appendChild(buttonContainer);
+
+  // 创建打开微信的按钮
+  var button = document.createElement('button');
+  button.innerHTML = '打开微信';
+  buttonContainer.appendChild(button);
+  
+  // 设置点击事件
+  button.onclick = function() {
+    window.location.href = 'weixin://';
+  };
 }
 
 // 在页面加载完成后进行判断
